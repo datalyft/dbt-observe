@@ -9,13 +9,6 @@
     )
 }}
 
--- Set schema, since tests use custom schema on dev
-{% if  target.name in ["dev", "ci"] %}
-    {%- set test_schema = target.schema ~ '_tests' -%}
-{% else %}
-     {%- set test_schema = 'dbt_tests' -%}
-{% endif %}
-
-{{ generate_tests_stats(test_schema) }}
+{{ generate_tests_stats(var('test_schema', 'dbt_tests')) }}
 
 {% endsnapshot %}
